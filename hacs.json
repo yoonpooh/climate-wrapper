@@ -1,0 +1,7 @@
+{
+  "name": "Climate Wrapper",
+  "render_readme": true,
+  "domains": ["climate"],
+  "iot_class": "Local Polling",
+  "homeassistant": "2024.1.0"
+}
