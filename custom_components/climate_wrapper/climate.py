@@ -464,31 +464,9 @@ class ClimateWrapperEntity(CoordinatorEntity, RestoreEntity, ClimateEntity):
 
     def _update_temperature_limits(self, heating_state: State | None, cooling_state: State | None) -> None:
         """온도 범위 업데이트"""
-        mins = []
-        maxs = []
-        for state in (heating_state, cooling_state):
-            if not state:
-                continue
-            min_attr = state.attributes.get("min_temp")
-            if min_attr is None:
-                min_attr = state.attributes.get("min_temperature")
-            max_attr = state.attributes.get("max_temp")
-            if max_attr is None:
-                max_attr = state.attributes.get("max_temperature")
-            min_val = _as_float(min_attr)
-            max_val = _as_float(max_attr)
-            if min_val is not None:
-                mins.append(min_val)
-            if max_val is not None:
-                maxs.append(max_val)
-
-        self._min_temp = min(mins) if mins else DEFAULT_MIN_TEMP
-        self._max_temp = max(maxs) if maxs else DEFAULT_MAX_TEMP
-
-        if self._min_temp >= self._max_temp:
-            self._min_temp = DEFAULT_MIN_TEMP
-            self._max_temp = DEFAULT_MAX_TEMP
-
+        # 항상 고정된 온도 범위 사용 (16-30도)
+        self._min_temp = DEFAULT_MIN_TEMP
+        self._max_temp = DEFAULT_MAX_TEMP
         self._apply_target_limits()
 
     async def _restore_from_last_state(self) -> None:
