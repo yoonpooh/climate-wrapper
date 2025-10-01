@@ -1,0 +1,26 @@
+{
+  "config": {
+    "title": "Climate Wrapper",
+    "step": {
+      "user": {
+        "description": "난방기와 냉방기를 하나의 스마트한 온도조절기로 통합합니다 (최소 하나 이상 선택 필요)",
+        "data": {
+          "name": "이름",
+          "heating_entity": "난방기 Entity (선택사항)",
+          "cooling_entity": "냉방기 Entity (선택사항)",
+          "temperature_sensor": "온도 센서 (선택사항)",
+          "humidity_sensor": "습도 센서 (선택사항)",
+          "command_cooldown": "명령 쿨다운 (초)",
+          "update_interval": "업데이트 주기 (초)"
+        }
+      }
+    },
+    "error": {
+      "unknown": "알 수 없는 오류가 발생했습니다",
+      "no_devices": "최소 하나 이상의 기기(난방기 또는 냉방기)를 선택해야 합니다"
+    },
+    "abort": {
+      "already_configured": "이미 설정되어 있습니다"
+    }
+  }
+}

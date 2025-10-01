@@ -1,0 +1,13 @@
+{
+  "domain": "climate_wrapper",
+  "name": "Climate Wrapper",
+  "codeowners": ["@yoonpooh"],
+  "config_flow": true,
+  "dependencies": [],
+  "documentation": "https://github.com/yoonpooh/climate-wrapper",
+  "integration_type": "hub",
+  "iot_class": "local_polling",
+  "issue_tracker": "https://github.com/yoonpooh/climate-wrapper/issues",
+  "requirements": [],
+  "version": "1.0.0"
+}

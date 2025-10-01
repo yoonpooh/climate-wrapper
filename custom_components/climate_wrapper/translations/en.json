@@ -1,0 +1,26 @@
+{
+  "config": {
+    "title": "Climate Wrapper",
+    "step": {
+      "user": {
+        "description": "Integrate heating and cooling devices into one smart thermostat (at least one device required)",
+        "data": {
+          "name": "Name",
+          "heating_entity": "Heating Entity (Optional)",
+          "cooling_entity": "Cooling Entity (Optional)",
+          "temperature_sensor": "Temperature Sensor (Optional)",
+          "humidity_sensor": "Humidity Sensor (Optional)",
+          "command_cooldown": "Command Cooldown (seconds)",
+          "update_interval": "Update Interval (seconds)"
+        }
+      }
+    },
+    "error": {
+      "unknown": "An unknown error occurred",
+      "no_devices": "At least one device (heating or cooling) must be selected"
+    },
+    "abort": {
+      "already_configured": "Already configured"
+    }
+  }
+}
