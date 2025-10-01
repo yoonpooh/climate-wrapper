@@ -10,6 +10,8 @@
           "cooling_entity": "냉방기 Entity (선택사항)",
           "temperature_sensor": "온도 센서 (선택사항)",
           "humidity_sensor": "습도 센서 (선택사항)",
+          "min_temp": "최소 온도 (°C)",
+          "max_temp": "최대 온도 (°C)",
           "command_cooldown": "명령 쿨다운 (초)",
           "update_interval": "업데이트 주기 (초)"
         }

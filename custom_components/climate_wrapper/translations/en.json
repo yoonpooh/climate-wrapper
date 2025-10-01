@@ -10,6 +10,8 @@
           "cooling_entity": "Cooling Entity (Optional)",
           "temperature_sensor": "Temperature Sensor (Optional)",
           "humidity_sensor": "Humidity Sensor (Optional)",
+          "min_temp": "Minimum Temperature (°C)",
+          "max_temp": "Maximum Temperature (°C)",
           "command_cooldown": "Command Cooldown (seconds)",
           "update_interval": "Update Interval (seconds)"
         }

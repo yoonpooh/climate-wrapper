@@ -11,10 +11,14 @@ CONF_HUMIDITY_SENSOR = "humidity_sensor"
 CONF_HEATING_ENTITY = "heating_entity"
 CONF_COOLING_ENTITY = "cooling_entity"
 CONF_COMMAND_COOLDOWN = "command_cooldown"
+CONF_MIN_TEMP = "min_temp"
+CONF_MAX_TEMP = "max_temp"
 
 # 기본값
 DEFAULT_UPDATE_INTERVAL = 30
 DEFAULT_COMMAND_COOLDOWN = 120
+DEFAULT_MIN_TEMP = 16.0
+DEFAULT_MAX_TEMP = 30.0
 
 # 제어 모드
 MODE_IDLE = "idle"

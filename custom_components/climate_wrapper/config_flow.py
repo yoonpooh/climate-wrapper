@@ -13,8 +13,12 @@ from .const import (
     CONF_HEATING_ENTITY,
     CONF_COOLING_ENTITY,
     CONF_COMMAND_COOLDOWN,
+    CONF_MIN_TEMP,
+    CONF_MAX_TEMP,
     DEFAULT_UPDATE_INTERVAL,
     DEFAULT_COMMAND_COOLDOWN,
+    DEFAULT_MIN_TEMP,
+    DEFAULT_MAX_TEMP,
     DOMAIN,
     NAME,
 )
@@ -65,6 +69,12 @@ class ClimateWrapperConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 ),
                 vol.Optional(CONF_HUMIDITY_SENSOR): selector.EntitySelector(
                     selector.EntitySelectorConfig(domain="sensor", device_class="humidity")
+                ),
+                vol.Optional(CONF_MIN_TEMP, default=DEFAULT_MIN_TEMP): vol.All(
+                    vol.Coerce(float), vol.Range(min=5.0, max=25.0)
+                ),
+                vol.Optional(CONF_MAX_TEMP, default=DEFAULT_MAX_TEMP): vol.All(
+                    vol.Coerce(float), vol.Range(min=20.0, max=40.0)
                 ),
                 vol.Optional(CONF_COMMAND_COOLDOWN, default=DEFAULT_COMMAND_COOLDOWN): vol.All(
                     vol.Coerce(int), vol.Range(min=30, max=600)

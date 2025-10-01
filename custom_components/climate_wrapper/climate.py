@@ -36,7 +36,11 @@ from .const import (
     CONF_COMMAND_COOLDOWN,
     CONF_HUMIDITY_SENSOR,
     CONF_TEMPERATURE_SENSOR,
+    CONF_MIN_TEMP,
+    CONF_MAX_TEMP,
     DEFAULT_COMMAND_COOLDOWN,
+    DEFAULT_MIN_TEMP,
+    DEFAULT_MAX_TEMP,
     DOMAIN,
     MODE_COOLING,
     MODE_HEATING,
@@ -120,12 +124,6 @@ class ClimateWrapperEntity(CoordinatorEntity, RestoreEntity, ClimateEntity):
         self._attr_hvac_mode: HVACMode = HVACMode.OFF
         self._attr_hvac_action: HVACAction = HVACAction.OFF
 
-        # 온도 범위
-        self._min_temp: float = DEFAULT_MIN_TEMP
-        self._max_temp: float = DEFAULT_MAX_TEMP
-        self._attr_target_temperature_step = 0.5
-        self._attr_precision = 0.5
-
         # 설정 값
         self._heating_entity: Optional[str] = config_entry.data.get(CONF_HEATING_ENTITY)
         self._cooling_entity: Optional[str] = config_entry.data.get(CONF_COOLING_ENTITY)
@@ -134,6 +132,12 @@ class ClimateWrapperEntity(CoordinatorEntity, RestoreEntity, ClimateEntity):
         self._command_cooldown = timedelta(
             seconds=config_entry.data.get(CONF_COMMAND_COOLDOWN, DEFAULT_COMMAND_COOLDOWN)
         )
+
+        # 온도 범위 (설정값 사용)
+        self._min_temp: float = config_entry.data.get(CONF_MIN_TEMP, DEFAULT_MIN_TEMP)
+        self._max_temp: float = config_entry.data.get(CONF_MAX_TEMP, DEFAULT_MAX_TEMP)
+        self._attr_target_temperature_step = 0.5
+        self._attr_precision = 0.5
 
         # 사용 가능한 HVAC 모드 동적 설정
         modes = [HVACMode.OFF]
@@ -464,9 +468,7 @@ class ClimateWrapperEntity(CoordinatorEntity, RestoreEntity, ClimateEntity):
 
     def _update_temperature_limits(self, heating_state: State | None, cooling_state: State | None) -> None:
         """온도 범위 업데이트"""
-        # 항상 고정된 온도 범위 사용 (16-30도)
-        self._min_temp = DEFAULT_MIN_TEMP
-        self._max_temp = DEFAULT_MAX_TEMP
+        # 설정된 온도 범위 사용 (변경 없음)
         self._apply_target_limits()
 
     async def _restore_from_last_state(self) -> None:
