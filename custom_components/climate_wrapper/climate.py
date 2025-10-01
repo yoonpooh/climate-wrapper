@@ -1042,10 +1042,37 @@ class ClimateWrapperEntity(CoordinatorEntity, RestoreEntity, ClimateEntity):
         """HVAC 동작 업데이트"""
         if self._attr_hvac_mode == HVACMode.OFF or self._running_mode == MODE_IDLE:
             self._attr_hvac_action = HVACAction.OFF
-        elif self._running_mode == MODE_HEATING:
-            self._attr_hvac_action = HVACAction.HEATING
+            return
+
+        # 실제 기기 상태를 확인하여 동작 결정
+        if self._running_mode == MODE_HEATING and self._heating_entity:
+            heating_state = self._hass.states.get(self._heating_entity)
+            if heating_state and heating_state.state == HVACMode.HEAT:
+                # 난방기가 켜져있고 현재 온도와 목표 온도 비교
+                if self._attr_current_temperature is not None:
+                    if self._attr_current_temperature < self._heat_target - 0.1:
+                        self._attr_hvac_action = HVACAction.HEATING
+                    else:
+                        self._attr_hvac_action = HVACAction.IDLE
+                else:
+                    self._attr_hvac_action = HVACAction.HEATING
+            else:
+                self._attr_hvac_action = HVACAction.IDLE
+        elif self._running_mode == MODE_COOLING and self._cooling_entity:
+            cooling_state = self._hass.states.get(self._cooling_entity)
+            if cooling_state and cooling_state.state == HVACMode.COOL:
+                # 냉방기가 켜져있고 현재 온도와 목표 온도 비교
+                if self._attr_current_temperature is not None:
+                    if self._attr_current_temperature > self._cool_target + 0.1:
+                        self._attr_hvac_action = HVACAction.COOLING
+                    else:
+                        self._attr_hvac_action = HVACAction.IDLE
+                else:
+                    self._attr_hvac_action = HVACAction.COOLING
+            else:
+                self._attr_hvac_action = HVACAction.IDLE
         else:
-            self._attr_hvac_action = HVACAction.COOLING
+            self._attr_hvac_action = HVACAction.IDLE
 
     async def async_set_temperature(self, **kwargs: Any) -> None:
         """온도 설정"""
