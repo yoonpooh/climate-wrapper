@@ -2,7 +2,7 @@
 
 DOMAIN = "climate_wrapper"
 NAME = "Climate Wrapper"
-VERSION = "1.0.0"
+VERSION = "1.0.1"
 
 # 설정 키
 CONF_UPDATE_INTERVAL = "update_interval"
